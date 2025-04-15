@@ -3,14 +3,19 @@ nixPkgs = ["nodejs"]
 
 [phases.install]
 cmds = [
-  "npm cache clean --force",
-  "rm -rf node_modules",
   "npm install"
 ]
 
 [phases.build]
-cmds = ["NODE_ENV=production npm run build:preview"]
-
+cmds = [
+  "npm run build:preview"
+]
 
 [variables]
 NODE_ENV = "production" 
+VITE_MEDUSA_BASE = $VITE_MEDUSA_BASE
+VITE_MEDUSA_STOREFRONT_URL = $VITE_MEDUSA_STOREFRONT_URL
+VITE_MEDUSA_BACKEND_URL = $VITE_MEDUSA_BACKEND_URL
+VITE_PUBLISHABLE_API_KEY = $VITE_PUBLISHABLE_API_KEY
+VITE_TALK_JS_APP_ID = $VITE_TALK_JS_APP_ID
+VITE_DISABLE_SELLERS_REGISTRATION = $VITE_DISABLE_SELLERS_REGISTRATION 
