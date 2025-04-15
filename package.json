@@ -4,15 +4,14 @@
   "scripts": {
     "generate:static": "node ./scripts/generate-currencies.js && prettier --write ./src/lib/currencies.ts",
     "dev": "vite",
-    "build": "vite build && tsup && node ./scripts/generate-types.js",
+    "build": "tsup && node ./scripts/generate-types.js",
     "build:preview": "vite build",
     "build:admin": "medusa build",
     "preview": "vite preview",
     "test": "vitest --run",
     "i18n:validate": "node ./scripts/i18n/validate-translation.js",
     "i18n:schema": "node ./scripts/i18n/generate-schema.js",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "start": "node start.js"
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "main": "dist/app.js",
   "module": "dist/app.mjs",
@@ -94,11 +93,10 @@
     "prettier": "^3.1.1",
     "tailwindcss": "^3.4.1",
     "tsup": "^8.0.2",
-    "turbo": "^2.5.0",
     "typescript": "5.2.2",
     "vite": "^5.4.14",
     "vite-plugin-inspect": "^0.8.7",
     "vitest": "^3.0.5"
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "yarn@3.2.1"
 }
