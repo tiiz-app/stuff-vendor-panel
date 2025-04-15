@@ -11,8 +11,6 @@ cmds = [
 [phases.build]
 cmds = ["NODE_ENV=production npm run build:preview"]
 
-[start]
-cmd = "npx serve dist -p ${PORT:-3000}"
 
 [variables]
 NODE_ENV = "production" 
