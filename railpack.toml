@@ -1,5 +1,5 @@
 [build]
-command = "yarn install && NODE_ENV=production yarn build:preview"
+command = "yarn install --no-frozen-lockfile --network-timeout 100000 && NODE_ENV=production yarn build:preview"
 output = "dist"
 
 [serve]
