@@ -1,5 +1,5 @@
 [build]
-command = "yarn build:preview"
+command = "NODE_ENV=production yarn build:preview"
 output = "dist"
 
 [serve]
