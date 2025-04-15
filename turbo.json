@@ -4,10 +4,16 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "src/**/*.css", "vite.config.ts"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts"]
     },
     "lint": {
-      "outputs": []
+      "outputs": [],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
     "dev": {
       "cache": false,
