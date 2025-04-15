@@ -1,0 +1,14 @@
+[phases.setup]
+nixPkgs = ["nodejs", "yarn"]
+
+[phases.install]
+cmds = ["yarn install --no-frozen-lockfile --network-timeout 100000"]
+
+[phases.build]
+cmds = ["NODE_ENV=production yarn build:preview"]
+
+[start]
+cmd = "npx serve dist -p ${PORT:-3000}"
+
+[variables]
+NODE_ENV = "production" 
