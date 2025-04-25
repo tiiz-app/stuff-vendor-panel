@@ -43,6 +43,10 @@ export const CustomerGroupListTable = () => {
     throw error;
   }
 
+  const filteredList = customer_groups?.filter(
+    (group) => group.customers && group.customers.length > 0
+  );
+
   return (
     <SingleColumnPage
       widgets={{
@@ -52,7 +56,7 @@ export const CustomerGroupListTable = () => {
     >
       <Container className='overflow-hidden p-0'>
         <DataTable
-          data={customer_groups}
+          data={filteredList}
           columns={columns}
           filters={filters}
           heading={t('customerGroups.domain')}

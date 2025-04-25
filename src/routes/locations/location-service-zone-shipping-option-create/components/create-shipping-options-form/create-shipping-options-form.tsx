@@ -60,7 +60,7 @@ export function CreateShippingOptionsForm({
       name: '',
       price_type: ShippingOptionPriceType.FlatRate,
       enabled_in_store: true,
-      shipping_profile_id: 'sp_01JKWKKVY3S5TV591ECP8HC7M5',
+      shipping_profile_id: '',
       provider_id: 'manual_manual',
       fulfillment_option_id: '',
       region_prices: {},

@@ -60,6 +60,22 @@ export const StoreGeneralSection = ({
       </div>
       <div className='text-ui-fg-subtle grid grid-cols-2 px-6 py-4'>
         <Text size='small' leading='compact' weight='plus'>
+          {t('fields.email')}
+        </Text>
+        <Text size='small' leading='compact'>
+          {seller.email}
+        </Text>
+      </div>
+      <div className='text-ui-fg-subtle grid grid-cols-2 px-6 py-4'>
+        <Text size='small' leading='compact' weight='plus'>
+          {t('fields.phone')}
+        </Text>
+        <Text size='small' leading='compact'>
+          {seller.phone}
+        </Text>
+      </div>
+      <div className='text-ui-fg-subtle grid grid-cols-2 px-6 py-4'>
+        <Text size='small' leading='compact' weight='plus'>
           Description
         </Text>
         <Text size='small' leading='compact'>

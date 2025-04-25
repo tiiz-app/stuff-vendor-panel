@@ -133,7 +133,7 @@ export const NavItem = ({
   const isSetting = type === 'setting';
 
   return (
-    <div className='px-3 mt-2'>
+    <div className='px-3'>
       <NavItemTooltip to={to}>
         <NavLink
           to={to}

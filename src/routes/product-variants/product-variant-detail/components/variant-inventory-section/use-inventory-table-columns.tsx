@@ -54,45 +54,6 @@ export const useInventoryTableColumns = () => {
           );
         },
       }),
-      // columnHelper.accessor('required_quantity', {
-      //   header: t('fields.requiredQuantity'),
-      //   cell: ({ getValue }) => {
-      //     const quantity = getValue() as number;
-
-      //     if (Number.isNaN(quantity)) {
-      //       return <PlaceholderCell />;
-      //     }
-
-      //     return (
-      //       <div className='flex size-full items-center overflow-hidden'>
-      //         <span className='truncate'>{quantity}</span>
-      //       </div>
-      //     );
-      //   },
-      // }),
-      // columnHelper.display({
-      //   id: 'inventory_quantity',
-      //   header: t('fields.inventory'),
-      //   cell: ({
-      //     row: {
-      //       original: { variant },
-      //     },
-      //   }) => {
-      //     if (!variant.inventory_items?.length) {
-      //       return <PlaceholderCell />;
-      //     }
-
-      //     const quantity = variant.inventory_items.length;
-
-      //     return (
-      //       <div className='flex size-full items-center overflow-hidden'>
-      //         <span className='truncate'>
-      //           {`${quantity} available`}
-      //         </span>
-      //       </div>
-      //     );
-      //   },
-      // }),
       columnHelper.display({
         id: 'actions',
         cell: ({ row }) => (

@@ -8,7 +8,7 @@ import {
 
 import { FetchError } from '@medusajs/js-sdk';
 import { HttpTypes } from '@medusajs/types';
-import { fetchQuery, sdk } from '../../lib/client';
+import { fetchQuery } from '../../lib/client';
 import { queryClient } from '../../lib/query-client';
 import { queryKeysFactory } from '../../lib/query-key-factory';
 
@@ -27,7 +27,10 @@ export const useCreateShippingProfile = (
 ) => {
   return useMutation({
     mutationFn: (payload) =>
-      sdk.admin.shippingProfile.create(payload),
+      fetchQuery('/vendor/shipping-profiles', {
+        method: 'POST',
+        body: payload,
+      }),
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: shippingProfileQueryKeys.lists(),
@@ -54,7 +57,10 @@ export const useShippingProfile = (
 ) => {
   const { data, ...rest } = useQuery({
     queryFn: () =>
-      sdk.admin.shippingProfile.retrieve(id, query),
+      fetchQuery(`/vendor/shipping-profiles/${id}`, {
+        method: 'GET',
+        query,
+      }),
     queryKey: shippingProfileQueryKeys.detail(id, query),
     ...options,
   });
@@ -76,9 +82,8 @@ export const useShippingProfiles = (
 ) => {
   const { data, ...rest } = useQuery({
     queryFn: () =>
-      fetchQuery('/vendor/shipping-options', {
+      fetchQuery('/vendor/shipping-profiles', {
         method: 'GET',
-        query: query as { [key: string]: string | number },
       }),
     queryKey: shippingProfileQueryKeys.list(query),
     ...options,
@@ -97,7 +102,10 @@ export const useUpdateShippingProfile = (
 ) => {
   const { data, ...rest } = useMutation({
     mutationFn: (payload) =>
-      sdk.admin.shippingProfile.update(id, payload),
+      fetchQuery(`/vendor/shipping-profiles/${id}`, {
+        method: 'POST',
+        body: payload,
+      }),
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: shippingProfileQueryKeys.detail(id),
@@ -123,7 +131,10 @@ export const useDeleteShippingProfile = (
   >
 ) => {
   return useMutation({
-    mutationFn: () => sdk.admin.shippingProfile.delete(id),
+    mutationFn: () =>
+      fetchQuery(`/vendor/shipping-profiles/${id}`, {
+        method: 'DELETE',
+      }),
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: shippingProfileQueryKeys.detail(id),

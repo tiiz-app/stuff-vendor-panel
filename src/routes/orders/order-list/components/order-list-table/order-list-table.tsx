@@ -12,7 +12,7 @@ const PAGE_SIZE = 20;
 
 export const OrderListTable = () => {
   const { t } = useTranslation();
-  const { raw } = useOrderTableQuery({
+  const { raw, searchParams } = useOrderTableQuery({
     pageSize: PAGE_SIZE,
   });
 
@@ -21,6 +21,7 @@ export const OrderListTable = () => {
       limit: 1000,
       offset: 0,
       fields: '*customer',
+      ...searchParams,
     });
 
   const filters = useOrderTableFilters();

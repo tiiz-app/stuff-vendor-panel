@@ -90,34 +90,49 @@ export const useInventoryTableColumns = () => {
           );
         },
       }),
-      columnHelper.accessor('reserved_quantity', {
+      columnHelper.accessor('location_levels', {
         header: t('inventory.reserved'),
         cell: ({ getValue }) => {
-          const quantity = getValue();
+          const locations = getValue() as any[];
 
-          if (Number.isNaN(quantity)) {
+          const totalReserved = locations.reduce(
+            (sum: number, level: any) =>
+              sum + level.reserved_quantity,
+            0
+          );
+
+          if (Number.isNaN(totalReserved)) {
             return <PlaceholderCell />;
           }
 
           return (
             <div className='flex size-full items-center overflow-hidden'>
-              <span className='truncate'>{quantity}</span>
+              <span className='truncate'>
+                {totalReserved}
+              </span>
             </div>
           );
         },
       }),
-      columnHelper.accessor('stocked_quantity', {
+      columnHelper.accessor('location_levels', {
         header: t('fields.inStock'),
         cell: ({ getValue }) => {
-          const quantity = getValue();
+          const locations = getValue() as any[];
+          const totalAvailable = locations.reduce(
+            (sum: number, level: any) =>
+              sum + level.available_quantity,
+            0
+          );
 
-          if (Number.isNaN(quantity)) {
+          if (Number.isNaN(totalAvailable)) {
             return <PlaceholderCell />;
           }
 
           return (
             <div className='flex size-full items-center overflow-hidden'>
-              <span className='truncate'>{quantity}</span>
+              <span className='truncate'>
+                {totalAvailable}
+              </span>
             </div>
           );
         },

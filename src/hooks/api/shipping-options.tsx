@@ -8,7 +8,7 @@ import {
 
 import { FetchError } from '@medusajs/js-sdk';
 import { HttpTypes } from '@medusajs/types';
-import { fetchQuery, sdk } from '../../lib/client';
+import { fetchQuery } from '../../lib/client';
 import { queryClient } from '../../lib/query-client';
 import { queryKeysFactory } from '../../lib/query-key-factory';
 import { stockLocationsQueryKeys } from './stock-locations';
@@ -31,7 +31,10 @@ export const useShippingOption = (
 ) => {
   const { data, ...rest } = useQuery({
     queryFn: () =>
-      sdk.admin.shippingOption.retrieve(id, query),
+      fetchQuery(`/vendor/shipping-options/${id}`, {
+        method: 'GET',
+        query,
+      }),
     queryKey: shippingOptionsQueryKeys.detail(id),
     ...options,
   });
@@ -100,7 +103,10 @@ export const useUpdateShippingOptions = (
 ) => {
   return useMutation({
     mutationFn: (payload) =>
-      sdk.admin.shippingOption.update(id, payload),
+      fetchQuery(`/vendor/shipping-options/${id}`, {
+        method: 'POST',
+        body: payload,
+      }),
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: stockLocationsQueryKeys.all,
@@ -124,7 +130,9 @@ export const useDeleteShippingOption = (
 ) => {
   return useMutation({
     mutationFn: () =>
-      sdk.admin.shippingOption.delete(optionId),
+      fetchQuery(`/vendor/shipping-options/${optionId}`, {
+        method: 'DELETE',
+      }),
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: stockLocationsQueryKeys.all,

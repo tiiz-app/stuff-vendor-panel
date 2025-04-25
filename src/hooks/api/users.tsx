@@ -35,6 +35,10 @@ export const useMe = (
     queryFn: async () =>
       fetchQuery('/vendor/sellers/me', {
         method: 'GET',
+        query: {
+          fields:
+            'id,name,description,phone,email,media,address_line,postal_code,country_code,city,region,metadata,tax_id',
+        },
       }),
     queryKey: usersQueryKeys.me(),
     ...options,

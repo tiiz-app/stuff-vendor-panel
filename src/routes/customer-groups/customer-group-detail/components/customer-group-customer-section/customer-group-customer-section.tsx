@@ -18,7 +18,6 @@ import { Link } from 'react-router-dom';
 import { ActionMenu } from '../../../../../components/common/action-menu';
 import { _DataTable } from '../../../../../components/table/data-table';
 import { useRemoveCustomersFromGroup } from '../../../../../hooks/api/customer-groups';
-import { useCustomers } from '../../../../../hooks/api/customers';
 import { useCustomerTableColumns } from '../../../../../hooks/table/columns/use-customer-table-columns';
 import { useCustomerTableFilters } from '../../../../../hooks/table/filters/use-customer-table-filters';
 import { useCustomerTableQuery } from '../../../../../hooks/table/query/use-customer-table-query';
@@ -38,13 +37,12 @@ export const CustomerGroupCustomerSection = ({
   const { t } = useTranslation();
   const prompt = usePrompt();
 
-  const { searchParams, raw } = useCustomerTableQuery({
+  const { raw } = useCustomerTableQuery({
     pageSize: PAGE_SIZE,
   });
-  const { customers, count, isLoading, isError, error } =
-    useCustomers({
-      ...searchParams,
-    });
+
+  const customers = group.customers;
+  const count = customers.length;
 
   const columns = useColumns();
   const filters = useCustomerTableFilters(['groups']);
@@ -65,10 +63,6 @@ export const CustomerGroupCustomerSection = ({
       customerGroupId: group.id,
     },
   });
-
-  if (isError) {
-    throw error;
-  }
 
   const { mutateAsync } = useRemoveCustomersFromGroup(
     group.id
@@ -120,7 +114,6 @@ export const CustomerGroupCustomerSection = ({
         table={table}
         columns={columns}
         pageSize={PAGE_SIZE}
-        isLoading={isLoading}
         count={count}
         navigateTo={(row) => `/customers/${row.id}`}
         filters={filters}

@@ -15,7 +15,7 @@ import { Form } from '../../../../../components/common/form';
 import { SwitchBox } from '../../../../../components/common/switch-box';
 import { Combobox } from '../../../../../components/inputs/combobox';
 import { useComboboxData } from '../../../../../hooks/use-combobox-data';
-import { sdk } from '../../../../../lib/client';
+import { fetchQuery, sdk } from '../../../../../lib/client';
 import { formatProvider } from '../../../../../lib/format-provider';
 import {
   FulfillmentSetType,
@@ -47,29 +47,31 @@ export const CreateShippingOptionDetailsForm = ({
   const isPickup = type === FulfillmentSetType.Pickup;
 
   const shippingProfiles = useComboboxData({
-    queryFn: (params) =>
-      sdk.admin.shippingProfile.list(params),
+    queryFn: () =>
+      fetchQuery(`/vendor/shipping-profiles`, {
+        method: 'GET',
+      }),
     queryKey: ['shipping_profiles'],
     getOptions: (data) =>
-      data.shipping_profiles.map((profile) => ({
-        label: profile.name,
-        value: profile.id,
+      data.shipping_profiles.map((profile: any) => ({
+        label: profile.shipping_profile.name,
+        value: profile.shipping_profile.id,
       })),
   });
 
-  const fulfillmentProviders = useComboboxData({
-    queryFn: (params) =>
-      sdk.admin.fulfillmentProvider.list({
-        ...params,
-        stock_location_id: locationId,
-      }),
-    queryKey: ['fulfillment_providers'],
-    getOptions: (data) =>
-      data.fulfillment_providers.map((provider) => ({
-        label: formatProvider(provider.id),
-        value: provider.id,
-      })),
-  });
+  // const fulfillmentProviders = useComboboxData({
+  //   queryFn: (params) =>
+  //     sdk.admin.fulfillmentProvider.list({
+  //       ...params,
+  //       stock_location_id: locationId,
+  //     }),
+  //   queryKey: ['fulfillment_providers'],
+  //   getOptions: (data) =>
+  //     data.fulfillment_providers.map((provider) => ({
+  //       label: formatProvider(provider.id),
+  //       value: provider.id,
+  //     })),
+  // });
 
   return (
     <div className='flex flex-1 flex-col items-center overflow-y-auto'>
@@ -171,7 +173,7 @@ export const CreateShippingOptionDetailsForm = ({
               );
             }}
           />
-          {/* <Form.Field
+          <Form.Field
             control={form.control}
             name='shipping_profile_id'
             render={({ field }) => {
@@ -199,7 +201,7 @@ export const CreateShippingOptionDetailsForm = ({
                 </Form.Item>
               );
             }}
-          /> */}
+          />
         </div>
 
         {/* <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>

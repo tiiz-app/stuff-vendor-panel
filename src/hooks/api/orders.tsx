@@ -148,7 +148,6 @@ export const useOrders = (
 
 export const useOrderChanges = (
   id: string,
-  query?: HttpTypes.AdminOrderChangesFilters,
   options?: Omit<
     UseQueryOptions<
       HttpTypes.AdminOrderChangesResponse,
@@ -161,7 +160,9 @@ export const useOrderChanges = (
 ) => {
   const { data, ...rest } = useQuery({
     queryFn: async () =>
-      sdk.admin.order.listChanges(id, query),
+      fetchQuery(`/vendor/orders/${id}/changes`, {
+        method: 'GET',
+      }),
     queryKey: ordersQueryKeys.changes(id),
     ...options,
   });
@@ -349,7 +350,10 @@ export const useCancelOrder = (
   >
 ) => {
   return useMutation({
-    mutationFn: () => sdk.admin.order.cancel(orderId),
+    mutationFn: () =>
+      fetchQuery(`/vendor/orders/${orderId}/cancel`, {
+        method: 'POST',
+      }),
     onSuccess: (
       data: any,
       variables: any,

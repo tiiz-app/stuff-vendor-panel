@@ -36,7 +36,10 @@ export const useCampaign = (
   const { data, ...rest } = useQuery({
     queryKey: campaignsQueryKeys.detail(id),
     queryFn: async () =>
-      sdk.admin.campaign.retrieve(id, query),
+      fetchQuery(`/vendor/campaigns/${id}`, {
+        method: 'GET',
+        query: query as { [key: string]: string | number },
+      }),
     ...options,
   });
 
@@ -101,7 +104,10 @@ export const useUpdateCampaign = (
 ) => {
   return useMutation({
     mutationFn: (payload) =>
-      sdk.admin.campaign.update(id, payload),
+      fetchQuery(`/vendor/campaigns/${id}`, {
+        method: 'POST',
+        body: payload,
+      }),
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: campaignsQueryKeys.lists(),
@@ -131,7 +137,10 @@ export const useDeleteCampaign = (
   >
 ) => {
   return useMutation({
-    mutationFn: () => sdk.admin.campaign.delete(id),
+    mutationFn: () =>
+      fetchQuery(`/vendor/campaigns/${id}`, {
+        method: 'DELETE',
+      }),
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: campaignsQueryKeys.lists(),

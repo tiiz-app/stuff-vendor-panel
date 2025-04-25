@@ -50,7 +50,9 @@ export const useCustomerGroups = (
     UseQueryOptions<
       HttpTypes.AdminGetCustomerGroupsParams,
       FetchError,
-      HttpTypes.AdminCustomerGroupListResponse,
+      HttpTypes.AdminCustomerGroupListResponse & {
+        customer_group?: any;
+      },
       QueryKey
     >,
     'queryFn' | 'queryKey'

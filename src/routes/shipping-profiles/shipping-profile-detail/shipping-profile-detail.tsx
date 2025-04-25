@@ -38,8 +38,6 @@ export const ShippingProfileDetail = () => {
         ),
         after: getWidgets('shipping_profile.details.after'),
       }}
-      showMetadata
-      showJSON
       data={shipping_profile}
     >
       <ShippingProfileGeneralSection

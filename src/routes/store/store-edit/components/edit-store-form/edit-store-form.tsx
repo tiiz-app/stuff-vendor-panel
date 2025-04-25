@@ -148,6 +148,7 @@ export const EditStoreForm = ({
       {
         name: values.name,
         email: values.email,
+        phone: values.phone,
         description: values.description,
         photo: uploadedMedia[0]?.url || seller.photo || '',
       },
